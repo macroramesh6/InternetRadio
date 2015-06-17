@@ -1,0 +1,172 @@
+hi frds i made one application for linux am using ubuntu. now i share u tat application. tat application is for hearing song in internet yes am telling 'online internet radio'program u can hear ur faverote FM station in internet. actually i tried this program for my own purpose bec i didnt have enough storage space in my hd so i tryed this program with python. ill tell u step by step to develop application in ur linux machine.
+
+Requirements:
+	1. linux machine (i hope u having linux machine)
+	2. python 2.7 or grater
+	3. gstreamer (most of the linux distributions are already installed)
+	4. wxpython (for application GUI)
+
+steps:
+
+step 1:
+	install python in ur machine ( http://askubuntu.com/questions/101591/how-do-i-install-python-2-7-2-on-10-04 )
+
+step 2:
+	install wxpython by typing "sudo apt-get install python-wxgtk2.8 python-wxtools wx2.8-i18n"
+
+step 3:
+	install gstreamer (hope most of the linux machine having gstreamer)
+
+Source Code:
+
+	Radio.py
+
+
+# -*- coding: utf-8 -*- 
+
+###########################################################################
+## Python code generated with wxFormBuilder (version Jun 30 2011)
+## http://www.wxformbuilder.org/
+##
+## PLEASE DO "NOT" EDIT THIS FILE!
+###########################################################################
+
+import wx
+import wx.xrc
+import startstop
+
+ID_ADD = 1000
+ID_EXIT = 1001
+ID_HELP = 1002
+
+Name = ['IBC Tamil','Kalakkal Kadambam','Tamil Radio','TAMIL DSP','NJ TAMIL RADIO','Tamil Christian Radio','Thamizhamutham Radio','Royaldaily.com','MorningStar Tamil Radio','Tharanga Tamil','KathalFM.com','Air Tamil Radio','Heaven Radio Tamil Christian Radio','TamilMelIsai.Com','OpenTamilRadio','TamilKuyilRadio.com','London Tamil Radio','SPICE RADIO','TRTTAMIL','Onex FM','JESUS fm','Bakthi Malargal','CTBC']
+
+station_uri = {"IBC Tamil":"http://38.96.175.192:6176" , "Kalakkal Kadambam":"http://67.228.177.153:4241/Live" , "Tamil Radio":"http://85.17.139.168:8002" , "TAMIL DSP":"http://178.159.0.80:8140" , "NJ TAMIL RADIO":"http://72.82.228.139:8002" , "Tamil Christian Radio":"http://67.225.164.64:8016" , "Thamizhamutham Radio":"http://178.159.0.80:7188" , "Royaldaily.com":"http://213.246.51.97:8026" , "MorningStar Tamil Radio":"http://78.159.120.157:37893" , "Tharanga Tamil":"http://184.168.74.213:7041" , "KathalFM.com":"=http://173.44.36.50:7262" , "Air Tamil Radio":"http://173.44.36.50:8044" , "Heaven Radio Tamil Christian Radio":"http://96.44.147.234:7768" , "TamilMelIsai.Com":"http://87.117.202.97:8090" , "OpenTamilRadio":"http://174.37.16.73:4817" , "TamilKuyilRadio.com":"http://173.193.219.163:8095" , "London Tamil Radio":"http://184.107.17.34:8106" , "SPICE RADIO":"http://109.123.117.195:8040" , "TRTTAMIL":"http://88.191.88.135:8024" , "Onex FM":"http://178.32.48.230:9998" , "JESUS fm":"http://174.36.206.217:8575" , "Bakthi Malargal":"http://84.73.228.253:8000" , "CTBC":"http://174.36.206.197:8088"}
+
+###########################################################################
+## Class MyFrame1
+###########################################################################
+# -*- coding: utf-8 -*- 
+
+###########################################################################
+## Python code generated with wxFormBuilder (version Jun 30 2011)
+## http://www.wxformbuilder.org/
+##
+## PLEASE DO "NOT" EDIT THIS FILE!
+###########################################################################
+
+#import wx
+#import wx.xrc
+
+#ID_ADD = 1000
+#ID_EXIT = 1001
+#ID_HELP = 1002
+
+###########################################################################
+## Class MyFrame1
+###########################################################################
+
+class MyFrame1 ( wx.Frame ):
+	
+	def __init__( self, parent ):
+		wx.Frame.__init__ ( self, parent, id = wx.ID_ANY, title = u"Blue internet radio", pos = wx.DefaultPosition, size = wx.Size( 700,350 ), style = wx.DEFAULT_FRAME_STYLE|wx.TAB_TRAVERSAL )
+		
+		self.SetSizeHintsSz( wx.DefaultSize, wx.DefaultSize )
+		
+		self.m_statusBar1 = self.CreateStatusBar( 1, wx.ST_SIZEGRIP, wx.ID_ANY )
+		bSizer1 = wx.BoxSizer( wx.HORIZONTAL )
+		
+		self.m_bitmap1 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"/home/blue/Radio/speaker.jpg", wx.BITMAP_TYPE_ANY ), wx.DefaultPosition, wx.DefaultSize, 0 )
+		bSizer1.Add( self.m_bitmap1, 0, wx.ALIGN_LEFT|wx.ALL, 5 )
+		
+		bSizer2 = wx.BoxSizer( wx.VERTICAL )
+		
+		m_listBox1Choices = Name
+		self.m_listBox1 = wx.ListBox( self, wx.ID_ANY, wx.DefaultPosition, wx.DefaultSize, m_listBox1Choices, 0 )
+		bSizer2.Add( self.m_listBox1, 1, wx.ALL|wx.EXPAND, 5 )
+		
+		bSizer1.Add( bSizer2, 1, wx.EXPAND, 5 )
+		
+		self.m_bitmap2 = wx.StaticBitmap( self, wx.ID_ANY, wx.Bitmap( u"/home/blue/Radio/speaker.jpg", wx.BITMAP_TYPE_ANY ), wx.Point( -1,-1 ), wx.DefaultSize, 0 )
+		bSizer1.Add( self.m_bitmap2, 0, wx.ALIGN_RIGHT|wx.ALL, 5 )
+		
+		self.SetSizer( bSizer1 )
+		self.Layout()
+		self.m_menubar1 = wx.MenuBar( 0 )
+		self.file = wx.Menu()
+		self.add = wx.MenuItem( self.file, ID_ADD, u"&Add", wx.EmptyString, wx.ITEM_NORMAL )
+		self.file.AppendItem( self.add )
+		
+		self.exit = wx.MenuItem( self.file, ID_EXIT, u"&Exit", wx.EmptyString, wx.ITEM_NORMAL )
+		self.file.AppendItem( self.exit )
+		
+		self.help = wx.MenuItem( self.file, ID_HELP, u"&Help", wx.EmptyString, wx.ITEM_NORMAL )
+		self.file.AppendItem( self.help )
+		
+		self.m_menubar1.Append( self.file, u"&File" ) 
+		
+		self.SetMenuBar( self.m_menubar1 )
+		
+		
+		self.Centre( wx.BOTH )
+		
+		# Connect Events
+		self.m_listBox1.Bind( wx.EVT_LISTBOX_DCLICK, self.OnSelect )
+		self.Bind( wx.EVT_MENU, self.OnAdd, id = self.add.GetId() )
+		self.Bind( wx.EVT_MENU, self.OnEdit, id = self.exit.GetId() )
+		self.Bind( wx.EVT_MENU, self.OnHelp, id = self.help.GetId() )
+	
+	def __del__( self ):
+		pass
+	
+	
+	# Virtual event handlers, overide them in your derived class
+	def OnSelect( self, event ):
+		startstop.stop()
+		uri = self.m_listBox1.GetStringSelection()
+		uri=station_uri[uri]
+		startstop.play(uri)
+		event.Skip()
+	
+	def OnAdd( self, event ):
+		event.Skip()
+	
+	def OnEdit( self, event ):
+		event.Skip()
+	
+	def OnHelp( self, event ):
+		event.Skip()
+	
+
+
+app = wx.App(0)
+MyFrame1(None).Show()
+app.MainLoop()		
+
+
+startstop.py
+
+import pygst
+#pygst.require("0.10")
+import gst
+
+player = gst.element_factory_make("playbin", "player")
+def play(uri):
+	music_stream_uri = uri
+	
+	
+
+
+	player.set_property('uri', music_stream_uri)
+
+	player.set_state(gst.STATE_PLAYING)
+
+
+def stop():
+
+	player.set_state(gst.STATE_NULL)
+
+
+
+	
+	u cn also edit fm station by using url.. the radio url can get frm internet.. i used shoutcast.
